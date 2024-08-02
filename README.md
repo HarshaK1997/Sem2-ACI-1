@@ -25,9 +25,9 @@ Initialize an empty set or list for visited nodes
   
 
 ### 3. Completion:
-  - If the queue is empty and the goal is not found, return failure
+  - If the queue is empty and the goal is not found, return failure.
 
-## Prevent Infinite Loops
+### Prevent Infinite Loops
 
   In graphs with cycles, marking nodes as visited only after they are dequeued prevents the algorithm from getting stuck in an infinite loop by revisiting nodes that have already been processed.
 
@@ -78,21 +78,21 @@ RBFS is a variant of the best-first search that uses a recursive approach to han
 
 ### 1. Initialization:
 - Start with the initial state as the root node.
-- Use a priority queue (or similar structure) to manage nodes based on their f-cost (a combination of the cost to reach the node and the estimated cost to the goal, often denoted as f(n)=g(n)+h(n)f(n) = g(n) + h(n)f(n)=g(n)+h(n)).
+- Use a priority queue (or similar structure) to manage nodes based on their f-cost (a combination of the cost to reach the node and the estimated cost to the goal, often denoted as f(n) = g(n) + h(n).
 
 ### 2. Recursive Search:
 - The algorithm recursively explores the most promising node (the node with the lowest f-cost) first.
 When expanding a node, generate its successors.
 - Calculate the f-cost for each successor.
 - If a successor node appears to be promising (i.e., its f-cost is lower than a threshold), recursively apply RBFS to that successor.
-- If a successor is less promising, store its f-cost and return to consider other nodes
+- If a successor is less promising, store its f-cost and return to consider other nodes.
 
 
 ## Steps Involved in the Comparison
 
 1. Expand the Current Node:
     - Generate the successors of the current node.
-    - Calculate the f-cost for each successor, where f(n)=g(n)+h(n)f(n) = g(n) + h(n)f(n)=g(n)+h(n).
+    - Calculate the f-cost for each successor, where f(n)=g(n)+h(n).
     
 2. Sort Successors by f-Cost:
     - Sort the list of successors based on their f-costs in ascending order. The successor with the lowest f-cost is considered the most promising path.
@@ -105,12 +105,15 @@ When expanding a node, generate its successors.
 5. Recursive Call on the Best Successor
     - Recursively apply RBFS to the best successor. This involves passing the current threshold and the minimum of the successor threshold and the f-cost of the second-best successor as the new threshold.
 6. Comparison Before Goal Test:
-    - Before performing the goal test on the best successor, compare its f-cost with the threshold.
-    - If the f-cost of the best successor exceeds this threshold during the recursive call, RBFS prunes this path and backtracks to explore the next best alternative.
+    - Before performing the goal test on the best successor, compare its f-cost with the threshold <small>i.e.</small> upper bound keeps track of the f-value of the best alternative path available form any ancestor of
+the current node
+    - The upper bound keeps track of the f-value of the best alternative path available form any ancestor of the current node.If the f-cost of the best successor exceeds this threshold during the recursive call, RBFS prunes this path and backtracks to explore the next best alternative.
     - If the f-cost of the best successor is within the threshold, proceed with the goal test.
 7.	Updating Threshold:
-    - o	The threshold is dynamically updated to the minimum f-cost of the best alternative path when backtracking.
-    - o	This allows the algorithm to reconsider previously pruned paths if they become more promising.
+    - The threshold is dynamically updated to the minimum f-cost of the best alternative path when backtracking.
+    - This allows the algorithm to reconsider previously pruned paths if they become more promising.
+    - The upper bound allows the algorithm to
+choose better paths rathe tha continuing indefinitely down the current path
 8. Completion:
     - The search continues recursively until the goal state is found or all paths have been explored without finding the goal.
     - When the goal state is found, the path to the goal is returned.
